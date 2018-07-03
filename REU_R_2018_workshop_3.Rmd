@@ -1,0 +1,94 @@
+---
+title: "REU_R_2018_workshop_3"
+author: "Ilya"
+date: "7/2/2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#####read in data
+```{r read_pantheria}
+#####read in PanTHERIA data (source: http://esapubs.org/archive/ecol/e090/184/#data) 
+P <- read.csv("PanTHERIA_1-0_WR05_Aug2008.csv", header=TRUE)
+```
+
+#####replace -999 with NA
+```{r}
+#replace
+P = replace(P, P==-999, NA)
+```
+
+#####plot continuous data as scatterplot
+```{r}
+plot(P$X7.1_DispersalAge_d, P$X5.1_AdultBodyMass_g)
+```
+
+#####plot customization: add axis titles
+```{r}
+plot(P$X7.1_DispersalAge_d, P$X5.1_AdultBodyMass_g, 
+     xlab = "Dispersal age (days)",
+     ylab = "Adult body mass (g)")
+```
+
+#####plot customization: log scale
+```{r}
+#this Stack Overflow thread goes over how to change how numbers appear; one option is to change options(scipen=X)
+#https://stackoverflow.com/questions/5963047/do-not-want-scientific-notation-on-plot-axis
+options(scipen=5)
+plot(P$X7.1_DispersalAge_d, P$X5.1_AdultBodyMass_g, 
+     xlab = "Dispersal age (days)",
+     ylab = "Adult body mass (g)",
+     log = "xy")
+```
+
+
+#####plot customization: log scale
+```{r}
+options(scipen=5)#change scientific to decimal
+plot(P$X7.1_DispersalAge_d, P$X5.1_AdultBodyMass_g, 
+     xlab = "Dispersal age (days)",
+     ylab = "Adult body mass (g)",
+     log = "xy",
+     col = "red")
+```
+
+#####plot customization: add title using "main"
+```{r}
+options(scipen=5)#change scientific to decimal
+plot(P$X7.1_DispersalAge_d, P$X5.1_AdultBodyMass_g, 
+     xlab = "Dispersal age (days)",
+     ylab = "Adult body mass (g)",
+     log = "xy",
+     col = "red",
+     main = "Relationship between dispersal age and body mass")
+```
+
+#####plot customization: change shape and size of points
+```{r}
+options(scipen=5)#change scientific to decimal
+plot(P$X7.1_DispersalAge_d, P$X5.1_AdultBodyMass_g, 
+     xlab = "Dispersal age (days)",
+     ylab = "Adult body mass (g)",
+     log = "xy",
+     col = "red", pch = 17, cex = 1.5,#pch: shape; cex: size
+     main = "Relationship between dispersal age and body mass")
+```
+
+#####plot customization: multiple plots per window
+```{r}
+options(scipen=5)#change scientific to decimal
+# specify (n.rows, n.columns)
+par(mfrow = c(1, 2))  #one row, two columns
+plot(P$X7.1_DispersalAge_d, P$X5.1_AdultBodyMass_g, 
+     xlab = "Dispersal age (days)",ylab = "Adult body mass (g)",
+     log = "xy", col = "red", pch = 17, cex = 1.5,#pch: shape; cex: size
+     main = "Relationship between dispersal age and body mass")
+plot(P$X5.1_AdultBodyMass_g, P$X7.1_DispersalAge_d, 
+     ylab = "Dispersal age (days)", xlab = "Adult body mass (g)",
+     log = "xy", col = "blue", pch = 17, cex = 1.5,#pch: shape; cex: size
+     main = "Relationship between dispersal age and body mass")
+
+```
