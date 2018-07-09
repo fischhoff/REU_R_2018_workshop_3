@@ -95,8 +95,12 @@ plot(P$X5.1_AdultBodyMass_g, P$X7.1_DispersalAge_d,
 
 ####Statistical analysis: linear regression
 ```{r}
+my.model.ord.int <- lm(log(X5.1_AdultBodyMass_g) ~ log(X7.1_DispersalAge_d)*MSW05_Order, data = P)
+summary(my.model.ord.int)
+
 my.model <- lm(log(X5.1_AdultBodyMass_g) ~ log(X7.1_DispersalAge_d), data = P)
 summary(my.model)
+
 ```
 
 #####Add line representing linear model
@@ -104,13 +108,14 @@ summary(my.model)
 # don't forget to reset your graphical parameters
 par(mfrow = c(1, 1))
 
-plot(P$X7.1_DispersalAge_d, P$X5.1_AdultBodyMass_g, 
+plot(log(P$X7.1_DispersalAge_d), log(P$X5.1_AdultBodyMass_g), 
      xlab = "Dispersal age (days)",ylab = "Adult body mass (g)",
-     log = "xy", col = "red", pch = 17, cex = 1.5,#pch: shape; cex: size
+     col = "red", pch = 17, cex = 1.5,#pch: shape; cex: size
      main = "Relationship between dispersal age and body mass")
 
 # adds a line over the scatterplot
-abline(my.model)
+abline(my.model,
+       log="xy")
 
 # adds text at location (x,y) on plot
 text(1000, 100, labels = "R-squared = 0.02349")
